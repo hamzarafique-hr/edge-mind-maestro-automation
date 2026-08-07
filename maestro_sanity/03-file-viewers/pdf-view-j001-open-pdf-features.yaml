@@ -1,0 +1,183 @@
+appId: "pdfreader.pdfviewer.officetool.pdfscanner"
+name: Open PDF from Documents Tab Happy Path
+tags:
+  - home
+  - pdf-view-j001
+---
+# Precondition: App installed, storage permission granted, files available
+# Description: User opens a PDF file from default Documents tab
+- setAirplaneMode: enabled
+# Step 1: Launch app
+# - runFlow: ../01-tooltip/ttp-j001-complete-tooltip-walkthrough-from-first-launch-to-completion.yaml
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Step 2: Wait for Home (Documents tab default)
+- extendedWaitUntil:
+    visible: "All"
+    timeout: 10000
+
+# Step 3: Ensure ALL/PDF tab is selected
+- assertVisible: "All"
+
+# Step 4: Tap on any PDF file (e.g., Demo PDF)
+- tapOn: "Demo PDF"
+- waitForAnimationToEnd
+
+# Expected Results: Home loads with file list, tap opens PDF Reader screen, PDF renders successfully
+- runFlow: "../listen-pdf-popup.yaml"
+- assertVisible:
+    id: "pdfView"
+
+- assertVisible:
+    id: "iv_dark_mode"
+- tapOn:
+    id: "iv_dark_mode"
+- waitForAnimationToEnd
+
+- swipe:
+    direction: UP
+- waitForAnimationToEnd
+
+- swipe:
+    direction: DOWN
+- waitForAnimationToEnd
+
+- tapOn:
+    id: "iv_dark_mode"
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "iv_options"
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "tvFavourite"
+- tapOn:
+    id: "tvFavourite"
+- waitForAnimationToEnd
+
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+
+- assertVisible: "GoTo Page"
+- tapOn: "GoTo Page"
+- waitForAnimationToEnd
+
+- assertVisible: "GoTo Page"
+- assertVisible: "Enter page number (1-4)"
+- tapOn: "Enter page number (1-4)"
+- inputText: "2"
+
+- assertVisible:
+    text: "GoTo Page"
+    index: 1
+- tapOn:
+    text: "GoTo Page"
+    index: 1
+- waitForAnimationToEnd
+
+- tapOn:
+    id: "pdfView"
+- waitForAnimationToEnd
+
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+
+- scroll
+
+- assertVisible: "Reader Mode"
+- tapOn: "Reader Mode"
+- waitForAnimationToEnd
+
+
+# If "Show reader controls" is visible
+- runFlow:
+    when:
+      visible: "Show reader controls"
+    commands:
+      - tapOn: "Show reader controls"
+
+# Otherwise tap "Zoom in" 3 times
+- runFlow:
+    when:
+      notVisible: "Show reader controls"
+    commands:
+      - repeat:
+          times: 3
+          commands:
+            - tapOn: "Zoom in"
+
+# If "Show reader controls" is visible
+- runFlow:
+    when:
+      visible: "Show reader controls"
+    commands:
+      - tapOn: "Show reader controls"
+
+      # Otherwise tap "Zoom out" 3 times
+- runFlow:
+    when:
+      notVisible: "Show reader controls"
+    commands:
+      - repeat:
+          times: 3
+          commands:
+            - tapOn: "Zoom out"
+
+- scroll
+
+# If "Show reader controls" is visible
+- runFlow:
+    when:
+      visible: "Show reader controls"
+    commands:
+      - tapOn: "Show reader controls"
+
+      # Otherwise, tap "Previous"
+- runFlow:
+    when:
+      notVisible: "Show reader controls"
+    commands:
+      - assertVisible: "Previous"
+      - tapOn: "Previous"
+
+
+      # If "Show reader controls" is visible
+- runFlow:
+    when:
+      visible: "Show reader controls"
+    commands:
+      - tapOn: "Show reader controls"
+
+      # Otherwise, tap "Next"
+- runFlow:
+    when:
+      notVisible: "Show reader controls"
+    commands:
+      - assertVisible: "Next"
+      - tapOn: "Next"
+
+     
+ # If "Show reader controls" is visible
+- runFlow:
+    when:
+      visible: "Show reader controls"
+    commands:
+      - tapOn: "Show reader controls"
+
+      # Otherwise, tap "Exit"
+- runFlow:
+    when:
+      notVisible: "Show reader controls"
+    commands:
+      - assertVisible: "Next"
+      - tapOn: "Exit"
+
+- back

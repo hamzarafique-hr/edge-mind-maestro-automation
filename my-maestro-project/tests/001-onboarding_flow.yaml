@@ -1,0 +1,46 @@
+appId: "com.ondevice.ai.chat.assistant"
+name: Complete Onboarding Flow with Default Selection
+tags:
+  - onboarding
+  - onbd-j001
+---
+# Load the Page Object file containing all UI selectors
+- runScript: ../elements/onboarding_elements.js
+
+# Step 1: Launch the EdgeMind app
+- launchApp:
+    clearState: true
+
+# Step 2 & 3: Wait for automatic transition to the initial screen
+- extendedWaitUntil:
+    visible: ${output.onboardingPage.welcomeTitle}
+    timeout: 5000
+
+# Step 4: Verify the Just Exploring card is selected by default
+- assertVisible:
+    text: ${output.onboardingPage.justExploringCard}
+    selected: true
+
+# Step 5: Click the blue Next arrow button at the bottom right
+- tapOn: ${output.onboardingPage.nextButton}
+- waitForAnimationToEnd
+
+# Step 6: Verify transition to the Personal Assistant recommendation screen
+- assertVisible: ${output.onboardingPage.personalAssistantTitle}
+
+# Step 7: Click the blue Next arrow button
+- tapOn: ${output.onboardingPage.nextButton}
+- waitForAnimationToEnd
+
+# Step 8: Verify transition to the 100% On-Device screen
+- assertVisible: ${output.onboardingPage.onDeviceTitle}
+
+# Step 9: Click the blue Next arrow button to complete the flow
+- tapOn: ${output.onboardingPage.startExploringButton}
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Expected Results: Verify core dashboard elements
+- assertVisible: ${output.dashboardPage.brandHeader}
+- assertVisible: ${output.dashboardPage.workspacePrompt}
+- assertVisible: ${output.dashboardPage.agentLoadingStatus}

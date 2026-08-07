@@ -1,0 +1,60 @@
+appId: "pdfreader.pdfviewer.officetool.pdfscanner"
+name: Complete tooltip walkthrough from first launch to completion
+tags:
+  - tooltip
+  - ttp-j001
+---
+# Precondition: App installed fresh, user lands on Home Screen, tooltips enabled via config
+- setAirplaneMode: enabled
+- launchApp:
+    clearState: true
+    permissions:
+        all: allow
+
+# Step 1: Launch app -> Home Screen loads
+- waitForAnimationToEnd:
+    timeout: 10000
+
+# - assertVisible: "Allow Access"
+# - tapOn: "Allow Access"
+# - assertVisible: ".*Allow access.*"
+# - tapOn: ".*Allow access.*"
+
+- runFlow:
+    when:
+        visible: "Allow Access"
+    commands:
+        - tapOn: "Allow Access"
+        - assertVisible: ".*Allow access.*"
+        - tapOn: ".*Allow access.*"
+
+# Step 2: Wait for first tooltip to appear (All Types of Files)
+- extendedWaitUntil:
+    visible: "All Types of Files"
+    timeout: 10000
+
+# Step 3: Validate tooltip content and position
+- assertVisible: "All Types of Files"
+
+# Step 4: Tap Next
+- assertVisible: "Next"
+- tapOn: "Next"
+- waitForAnimationToEnd
+
+# Step 5: Wait for second tooltip (All-in-One PDF Toolkit)
+- extendedWaitUntil:
+    visible: "All-in-One PDF Toolkit"
+    timeout: 5000
+
+# Step 6: Validate tooltip content and anchor (bottom area)
+- assertVisible: "All-in-One PDF Toolkit"
+
+# Step 7: Tap Next
+- assertVisible: "Done"
+- tapOn: "Done"
+- waitForAnimationToEnd
+
+# Expected Results: Tooltips do not reappear after completion
+- assertNotVisible: "All Types of Files"
+- assertNotVisible: "All-in-One PDF Toolkit"
+- setAirplaneMode: disabled

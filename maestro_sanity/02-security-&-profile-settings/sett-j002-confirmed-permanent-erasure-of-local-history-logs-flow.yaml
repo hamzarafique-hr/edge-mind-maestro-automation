@@ -1,0 +1,32 @@
+appId: "com.ondevice.ai.chat.assistant"
+name: Confirmed Permanent Erasure of Local History Logs Flow
+tags:
+  - security-&-profile-settings
+  - sett-j002
+---
+# Precondition: Application contains historical user text sessions written down into system database allocation segments
+- launchApp
+
+# Step 1: Launch the EdgeMind application directly into the active dashboard home view layout
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# Step 2: Select and click the 'Settings' button icon link asset from the horizontal bottom tray
+- tapOn:
+    point: 80%,86%
+- waitForAnimationToEnd
+
+# Step 3: Locate and click the 'Delete All History' text options line inside the Chat Preferences layout
+- tapOn: "Delete All History"
+- waitForAnimationToEnd
+
+# Step 4: On the resulting warning overlay popup dialog card view component, look for the solid blue verification confirmation trigger box labeled 'Delete'
+- assertVisible: "Delete"
+
+# Step 5: Click the solid blue 'Delete' button directly via coordinate pointer trigger action logic
+- tapOn: "Delete"
+- waitForAnimationToEnd
+
+# Expected Results: Verify prompt modal card closes out cleanly and interface is refreshed back to clean default preferences states
+- assertNotVisible: "This will permanently remove all conversations. This cannot be undone."
+- assertVisible: "Settings"

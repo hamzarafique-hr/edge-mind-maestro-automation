@@ -1,0 +1,21 @@
+appId: "pdfreader.pdfviewer.officetool.pdfscanner"
+name: Tooltip behavior for returning user should not reappear
+tags:
+  - tooltip
+  - ttp-j005
+---
+# Precondition: Tooltip flow already completed once
+- runFlow: ttp-j001-complete-tooltip-walkthrough-from-first-launch-to-completion.yaml
+
+# Step 1: Launch app -> Home Screen (simulate returning user)
+- setAirplaneMode: enabled
+- stopApp
+- launchApp
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Step 2: Observe for tooltip appearance
+# Expected Results: No tooltip should appear, User directly interacts with home UI
+- assertNotVisible: "All Types of Files"
+- assertNotVisible: "All-in-One PDF Toolkit"
+- setAirplaneMode: disabled

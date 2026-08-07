@@ -1,0 +1,44 @@
+appId: "pdfreader.pdfviewer.officetool.pdfscanner"
+name: Skip tooltip flow by app background foreground during onboarding
+tags:
+  - tooltip
+  - ttp-j002
+---
+# Precondition: Tooltip flow started (user on Tooltip 1 or 2)
+- setAirplaneMode: enabled
+- launchApp:
+    clearState: true
+
+# Step 1: Launch app -> Home Screen
+- waitForAnimationToEnd:
+    timeout: 10000
+
+- runFlow:
+    when:
+        visible: "Allow Access"
+    commands:
+        - tapOn: "Allow Access"
+        - assertVisible: ".*Allow access.*"
+        - tapOn: ".*Allow access.*"
+
+- runFlow:
+    when:
+        visible: "All Types of Files"
+    commands:
+        - assertVisible: "All Types of Files"
+        - tapOn: "Next"
+        - assertVisible: "All-in-One PDF Toolkit"
+        - tapOn: "Done"
+
+# Step 4: Send app to background
+- pressKey: "home"
+- waitForAnimationToEnd
+
+# Step 5: Resume app
+- launchApp:
+    stopApp: false
+
+# Step 6: Observe tooltip state
+# Expected Results: Tooltip resumes from last step OR resets based on config
+- assertVisible: "PDF Reader"
+- setAirplaneMode: disabled

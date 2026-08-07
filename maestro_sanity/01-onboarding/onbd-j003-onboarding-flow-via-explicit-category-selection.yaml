@@ -1,0 +1,48 @@
+appId: "com.ondevice.ai.chat.assistant"
+name: Onboarding Flow via Explicit Category Selection
+tags:
+  - onboarding
+  - onbd-j003
+---
+# Verify that choosing an alternate category changes downstream agent recommendations contextually.
+# Precondition: App is freshly installed with no local cache.
+
+# Step 1: Launch the EdgeMind app
+- launchApp:
+    clearState: true
+
+# Step 2: Wait for the category screen to appear
+- extendedWaitUntil:
+    visible: "What brings you to Vethos?"
+    timeout: 5000
+
+# Step 3: Tap explicitly on the Coding grid item card
+- tapOn: "Coding"
+- waitForAnimationToEnd
+
+# Step 4: Verify Coding displays an active highlight state
+- assertVisible:
+    text: "Coding"
+    selected: true
+
+# Step 5: Click the blue Next arrow button
+- tapOn: "Next"
+
+# Step 6: Verify the recommended agent screen dynamically highlights Dev Vibes agent details
+- assertVisible: "Dev Vibes"
+- assertNotVisible: "Personal Assistant"
+
+# Step 7: Click the blue Next arrow button
+- tapOn: "Next"
+
+# Step 8: Review the 100% On-Device details screen and click the Next arrow button
+- assertVisible: "100% On-Device"
+- tapOn: "Start exploring"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Expected Results: App configures a personalized developer agent upon landing on the home page view
+- assertVisible: "Vethos"
+- assertVisible: "What can we do for you?"
+- assertVisible: "Your agent is suiting up…"
+- assertVisible: "Home"

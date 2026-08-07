@@ -1,0 +1,30 @@
+appId: "com.ondevice.ai.chat.assistant"
+name: Bypass Flow via Skip Option
+tags:
+  - onboarding
+  - onbd-j002
+---
+# Verify that users can immediately skip the questionnaire and landing screens to land straight into the app environment.
+# Precondition: App is freshly installed with no local cache.
+
+# Step 1: Launch the EdgeMind app
+- launchApp:
+    clearState: true
+
+# Step 2: On the category screen, locate the Skip action link at the top-right corner
+- extendedWaitUntil:
+    visible: "What brings you to Vethos?"
+    timeout: 5000
+- assertVisible: "Skip"
+
+# Step 3: Tap the Skip button
+- tapOn: "Skip"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Expected Results: Onboarding steps 2 and 3 are bypassed; the workspace loads instantly under a generic, unconfigured agent state
+- assertNotVisible: "Personal Assistant"
+- assertNotVisible: "100% On-Device"
+- assertVisible: "Vethos"
+- assertVisible: "What can we do for you?"
+- assertVisible: "Your agent is suiting up…"

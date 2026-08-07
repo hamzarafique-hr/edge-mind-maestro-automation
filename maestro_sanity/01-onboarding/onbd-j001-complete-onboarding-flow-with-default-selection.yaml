@@ -1,0 +1,52 @@
+appId: "com.ondevice.ai.chat.assistant"
+name: Complete Onboarding Flow with Default Selection
+tags:
+  - onboarding
+  - onbd-j001
+---
+# Verify a new user can successfully launch the app, proceed with the default category choice, step through marketing screens, and reach the main app workspace.
+# Precondition: App is freshly installed with no local cache or active session.
+
+# Step 1: Launch the EdgeMind app
+- launchApp:
+    clearState: true
+
+# Step 2: Verify the Splash screen displays the branding logo and 20+ AI Agents text
+# Step 3: Wait for automatic transition to the What brings you to EdgeMind? screen
+- extendedWaitUntil:
+    visible: "What brings you to Vethos?"
+    timeout: 5000
+
+# - takeScreenshot: "Onboarding"
+
+# - assertScreenshot: "Onboarding.png"
+
+# Step 4: Verify the Just Exploring card is selected by default with a highlighted active border
+- assertVisible:
+    text: "Just Exploring"
+    selected: true
+
+# Step 5: Click the blue Next arrow button at the bottom right
+- tapOn: "Next"
+- waitForAnimationToEnd
+
+# Step 6: Verify transition to the Personal Assistant recommendation screen
+- assertVisible: "Personal Assistant"
+
+# Step 7: Click the blue Next arrow button
+- tapOn: "Next"
+- waitForAnimationToEnd
+
+# Step 8: Verify transition to the 100% On-Device screen
+- assertVisible: "100% On-Device"
+
+# Step 9: Click the blue Next arrow button to complete the flow
+- tapOn: "Start exploring"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Expected Results: Onboarding state is saved locally; user lands successfully on the core application dashboard
+- assertVisible: "Vethos"
+- assertVisible: "What can we do for you?"
+- assertVisible: "Your agent is suiting up…"
+

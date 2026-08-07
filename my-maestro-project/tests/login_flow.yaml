@@ -1,0 +1,34 @@
+appId: com.ondevice.ai.chat.assistant
+---
+- launchApp
+- waitForAnimationToEnd:
+    timeout: 5000
+    
+
+# Step 1: Load your Page Object
+- runScript: ../elements/login_page.js
+
+# Step 2: Use the abstracted selectors instead of hardcoded strings
+- assertVisible: ${output.loginPage.vethosButton}
+- assertVisible: ${output.loginPage.homeButton}
+- tapOn:
+    id: ${output.loginPage.agentDownload}
+
+# - tapOn: ${output.loginPage.agentDownload}
+- waitForAnimationToEnd:
+    timeout: 50000
+
+
+
+
+
+# - tapOn: id: ${output.loginPage.emailField}
+# - inputText: "user@example.com"
+
+# - tapOn: id: ${output.loginPage.passwordField}
+# - inputText: "password123"
+
+# - tapOn: ${output.loginPage.signInButton}
+
+# # Step 3: Assert using the centralized selector
+# - assertVisible: ${output.loginPage.errorPopup}

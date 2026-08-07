@@ -1,0 +1,30 @@
+appId: "com.ondevice.ai.chat.assistant"
+name: Terms & Condition Flow
+tags:
+  - security-&-profile-settings
+  - sett-j003
+---
+# Precondition: Application contains historical user text sessions written down into system database allocation segments
+- launchApp
+
+# Step 1: Launch the EdgeMind application directly into the active dashboard home view layout
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# Step 2: Select and click the 'Settings' button icon link asset from the horizontal bottom tray
+- tapOn:
+    point: 80%,86%
+- waitForAnimationToEnd
+
+# Step 3: Locate and click the Terms and Condition button
+- assertVisible: "General"
+- assertVisible: "Terms & Conditions"
+- tapOn: "Terms & Conditions"
+- waitForAnimationToEnd
+
+# Step 4: Press device back to return on the settings screen
+- tapOn: "Back"
+- assertVisible: "Terms & Conditions"
+
+# Expected Results: Verify terms ad condition element shows
+- assertVisible: "Terms & Conditions"

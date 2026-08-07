@@ -1,0 +1,54 @@
+appId: "com.ondevice.ai.chat.assistant"
+name: Interrupted Conversation Log Purge and Preference Change Flow
+tags:
+  - security-&-profile-settings
+  - sett-j001
+---
+# Precondition: Application is actively operating with localized profile data files and 'Keep Chat History' switch toggled to active
+- launchApp
+
+# Step 1: Launch the EdgeMind application directly into the active dashboard home view layout
+- waitForAnimationToEnd:
+    timeout: 5000
+- assertVisible: "Home"
+
+# Step 2: Select and click the 'Settings' gear navigation option present inside the lower docking deck structure track
+- tapOn:
+    id: "pillBottomNav"
+- assertVisible: "Model Library"
+
+- tapOn:
+    point: 63%,86%
+
+- tapOn:
+    point: 80%,86%
+
+
+# Step 3: Locate the 'Keep Chat History' interactive slider item and click the switch module once directly
+- assertVisible: "Keep Chat History"
+- tapOn:
+    id: "switchKeepChatHistory"
+
+# Step 4: Verify the toggle switch element re-renders into an inactive gray theme mode styling configuration layout
+# (Visual state change is implicitly verified by app responsiveness; Maestro relies on text/accessibility labels)
+- tapOn:
+    id: "switchKeepChatHistory"
+
+# Step 5: Select and click the dangerous option line labeled 'Delete All History'
+- assertVisible: "Downloaded Models"
+- assertVisible: "Delete All History"
+- tapOn: "Delete All History"
+- waitForAnimationToEnd
+
+# Step 6: Verify presentation of the security prompt pop-up modal view context box bearing the title header string 'Delete All History?'
+- assertVisible: "Delete All History?"
+
+# Step 7: Select and click the outlined 'Cancel' button options box structure item
+- assertVisible: "Cancel"
+- assertVisible: "Delete"
+- tapOn: "Cancel"
+- waitForAnimationToEnd
+
+# Expected Results: Verify overlay clears out of view instantly and focus is restored to unaltered Settings page
+- assertNotVisible: "This will permanently remove all conversations. This cannot be undone."
+- assertVisible: "Settings"

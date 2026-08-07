@@ -1,0 +1,97 @@
+appId: "pdfreader.pdfviewer.officetool.pdfscanner"
+name: Open PDF from Documents Tab Happy Path
+tags:
+  - home
+  - pdf-view-j004
+---
+# Precondition: App installed, storage permission granted, files available
+# Description: User opens a PDF file from default Documents tab
+- setAirplaneMode: enabled
+# Step 1: Launch app
+# - runFlow: ../01-tooltip/ttp-j001-complete-tooltip-walkthrough-from-first-launch-to-completion.yaml
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Step 2: Wait for Home (Documents tab default)
+- extendedWaitUntil:
+    visible: "All"
+    timeout: 10000
+
+# Step 3: Ensure ALL/PDF tab is selected
+- assertVisible: "All"
+
+# Step 4: Tap on any PDF file (e.g., Demo PDF)
+- tapOn:
+    id: "llParent"
+    index: 3
+- waitForAnimationToEnd
+
+- tapOn:
+    point: 62%,33%
+
+
+# Expected Results: Home loads with file list, tap opens PDF Reader screen, PDF renders successfully
+- runFlow: "../listen-pdf-popup.yaml"
+- assertVisible:
+    id: "pdfView"
+
+
+- assertVisible:
+    id: "iv_options"
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+- scroll
+- scroll
+
+- assertVisible:
+    id: "cl_rename"
+- tapOn:
+    id: "cl_rename"
+- waitForAnimationToEnd
+
+- assertVisible: "Rename File"
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "ivAction"
+- tapOn:
+    id: "ivAction"
+- waitForAnimationToEnd
+
+- assertVisible: "Enter filename"
+- tapOn: "Enter filename"
+- inputText: "Rename this file"
+- waitForAnimationToEnd
+
+- assertVisible: "Rename"
+- tapOn: "Rename"
+- waitForAnimationToEnd
+
+
+- assertVisible:
+    id: "iv_options"
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+- scroll
+- scroll
+
+- assertVisible:
+    id: "cl_info"
+- tapOn:
+    id: "cl_info"
+- waitForAnimationToEnd
+
+- assertVisible: "File Information"
+- assertVisible:
+    id: "ivClose"
+- tapOn:
+    id: "ivClose"
+- waitForAnimationToEnd
+
+
+
+

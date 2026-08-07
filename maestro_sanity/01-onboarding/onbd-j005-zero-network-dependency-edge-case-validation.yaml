@@ -1,0 +1,41 @@
+appId: "com.ondevice.ai.chat.assistant"
+name: Zero Network Dependency Edge Case Validation
+tags:
+  - onboarding
+  - onbd-j005
+---
+# Verify the core value proposition that onboarding behaves completely offline without dependencies or hanging UI components.
+# Precondition: Device network interfaces are turned off completely.
+
+# Step 1: Launch the EdgeMind app in a strict offline state
+- setAirplaneMode: enabled
+- launchApp:
+    clearState: true
+
+# Step 2: Observe splash screen loading behavior
+# - assertVisible: "20+ AI Agents"
+- extendedWaitUntil:
+    visible: "What brings you to Vethos?"
+    timeout: 5000
+
+# Step 3: Complete navigation sequentially across screens 1, 2, and 3 using the blue Next buttons
+- tapOn: "Next"
+- assertVisible: "EdgeMind Assistant"
+- tapOn: "Next"
+- assertVisible: "100% On-Device"
+- tapOn: "Start exploring"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Expected Results: No network timeout loaders, error dialogues, or connection retries break the UI flow
+- assertNotVisible: "Loading"
+- assertNotVisible: "Error"
+- assertNotVisible: "Retry"
+
+# Expected Results: Assets, copy, and structural logic execute locally, safely delivering the user to the core offline agent shell
+- assertVisible: "Vethos"
+- assertVisible: "What can we do for you?"
+- assertVisible: "Your agent is suiting up…"
+
+# Cleanup: Restore network state
+- setAirplaneMode: disabled

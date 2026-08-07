@@ -1,0 +1,51 @@
+appId: "com.ondevice.ai.chat.assistant"
+name: Onboarding App Interruption and State Retention
+tags:
+  - onboarding
+  - onbd-j004
+---
+# Verify that the onboarding setup preserves selected state variables if interrupted by OS backgrounding.
+# Precondition: App is freshly installed with no local cache.
+
+# Step 1: Launch the EdgeMind app
+- launchApp:
+    clearState: true
+
+# Step 2: On the category selection screen, tap explicitly on the Finance grid card
+- extendedWaitUntil:
+    visible: "What brings you to Vethos?"
+    timeout: 5000
+- tapOn: "Finance"
+
+# Step 3: Click the blue Next arrow button to navigate to screen 2
+- tapOn: "Next"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Step 4: Send the app to the background using OS native home gestures
+- pressKey: Home
+
+# Step 5: Wait 5 seconds
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Step 6: Restore the app back to the foreground via the device task switcher
+- launchApp:
+    stopApp: false
+- waitForAnimationToEnd
+
+# Step 7: Verify the app displays the screen 2 state exactly as left
+- assertVisible: "Finance Copilot"
+
+# Step 8: Continue the flow by clicking Next through remaining screens until completion
+- tapOn: "Next"
+- assertVisible: "100% On-Device"
+- tapOn: "Start exploring"
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Expected Results: User cleanly enters the application dashboard with the configuration finalized
+- assertVisible: "Vethos"
+- assertVisible: "What can we do for you?"
+- assertVisible: "Your agent is suiting up…"
+

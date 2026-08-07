@@ -1,0 +1,178 @@
+appId: "pdfreader.pdfviewer.officetool.pdfscanner"
+name: Open PDF from Documents Tab Happy Path
+tags:
+  - home
+  - -view-j001
+---
+# Precondition: App installed, storage permission granted, files available
+# Description: User opens a PDF file from default Documents tab
+- setAirplaneMode: enabled
+# Step 1: Launch app
+# - runFlow: ../01-tooltip/ttp-j001-complete-tooltip-walkthrough-from-first-launch-to-completion.yaml
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Step 2: Wait for Home (Documents tab default)
+- extendedWaitUntil:
+    visible: "All"
+    timeout: 10000
+
+# Step 3: Ensure ALL/PDF tab is selected
+- assertVisible: "All"
+
+- assertVisible: "Word"
+- tapOn: "Word"
+- waitForAnimationToEnd
+
+# Step 4: Tap on any PDF file (e.g., Demo PDF)
+- tapOn:
+    id: "llParent"
+    index: 2
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "iv_search"
+- tapOn:
+    id: "iv_search"
+- waitForAnimationToEnd
+
+- assertVisible: "Find word in file"
+- tapOn: "Find word in file"
+- inputText: "Lorem"
+
+- assertVisible: "Enter"
+- tapOn: "Enter"
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      visible:
+        id: "iv_forward"
+    commands:
+      - tapOn:
+          id: "iv_forward"
+      - waitForAnimationToEnd
+
+      - tapOn:
+          id: "iv_forward"
+      - waitForAnimationToEnd
+
+- assertVisible:
+    id: "iv_clear"
+- tapOn:
+    id: "iv_clear"
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "iv_back"
+- tapOn:
+    id: "iv_back"
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "iv_share"
+- tapOn:
+    id: "iv_share"
+- waitForAnimationToEnd
+- back
+
+- assertVisible:
+    id: "iv_options"
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "tvFavourite"
+- tapOn:
+    id: "tvFavourite"
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "iv_options"
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+
+- assertVisible: "GoTo Page"
+- tapOn: "GoTo Page"
+- waitForAnimationToEnd
+
+# - assertVisible: "GoTo Page"
+# - assertVisible: "Enter page number (1-3)"
+# - tapOn: "Enter page number (1-3)"
+# - inputText: "2"
+
+- assertVisible: "Cancel"
+- tapOn: "Cancel"
+- waitForAnimationToEnd
+
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+
+- assertVisible: "Eye Protect"
+- tapOn: "Eye Protect"
+- waitForAnimationToEnd
+
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+
+- tapOn: "Eye Protect"
+- waitForAnimationToEnd
+
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+- scroll
+
+- assertVisible:
+    id: "sw_screen_on"
+- tapOn:
+    id: "sw_screen_on"
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "sw_fullscreen"
+- tapOn:
+    id: "sw_fullscreen"
+- waitForAnimationToEnd
+
+
+- assertVisible:
+    id: "iv_options"
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+- scroll
+
+- assertVisible:
+    id: "sw_volume_navigation"
+- tapOn:
+    id: "sw_volume_navigation"
+- waitForAnimationToEnd
+
+- assertVisible:
+    id: "sw_dark_mode"
+- tapOn:
+    id: "sw_dark_mode"
+- waitForAnimationToEnd
+
+- tapOn:
+    point: 0%,11%
+- waitForAnimationToEnd
+
+- tapOn:
+    id: "iv_options"
+- waitForAnimationToEnd
+- scroll
+
+- assertVisible:
+    id: "sw_dark_mode"
+- tapOn:
+    id: "sw_dark_mode"
+- waitForAnimationToEnd
+

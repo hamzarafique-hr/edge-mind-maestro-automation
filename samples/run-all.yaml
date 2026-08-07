@@ -1,0 +1,16 @@
+appId: com.ondevice.ai.chat.assistant
+---
+
+- runFlow: onboarding/onbd-j001-complete-onboarding-flow-with-default-selection.yaml
+- runFlow: onboarding/onbd-j002-bypass-flow-via-skip-option.yaml
+- runFlow: onboarding/onbd-j003-onboarding-flow-via-explicit-category-selection.yaml
+- runFlow: onboarding/onbd-j004-onboarding-app-interruption-and-state-retention.yaml
+- runFlow: onboarding/onbd-j005-zero-network-dependency-edge-case-validation.yaml
+
+- runFlow: security-&-profile-settings/sett-j001-interrupted-conversation-log-purge-and-preference-change-flow.yaml
+
+- runFlow: security-&-profile-settings/sett-j002-confirmed-permanent-erasure-of-local-history-logs-flow.yaml
+
+- runFlow: security-&-profile-settings/sett-j003-confirmed-permanent-erasure-of-local-history-logs-flow.yaml
+
+- runFlow: security-&-profile-settings/sett-j004-confirmed-permanent-erasure-of-local-history-logs-flow.yaml

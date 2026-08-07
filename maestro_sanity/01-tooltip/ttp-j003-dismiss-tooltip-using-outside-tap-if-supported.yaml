@@ -1,0 +1,30 @@
+appId: "pdfreader.pdfviewer.officetool.pdfscanner"
+name: Dismiss tooltip using outside tap if supported
+tags:
+  - tooltip
+  - ttp-j003
+---
+# Precondition: Tooltip is visible on screen
+- setAirplaneMode: enabled
+- launchApp:
+    clearState: true
+
+# Step 1: Launch app -> Home Screen
+- waitForAnimationToEnd:
+    timeout: 6000
+
+# Step 2: Wait for Tooltip 1
+- extendedWaitUntil:
+    visible: "All Types of Files"
+    timeout: 10000
+
+# Step 3: Tap outside tooltip area
+
+- tapOn:
+    point: "50%,10%"
+- waitForAnimationToEnd
+
+# Step 4: Observe behavior
+# Expected Results: Tooltip either dismisses OR remains (based on expected UX)
+- assertNotVisible: "All Types of Files"
+- setAirplaneMode: disabled

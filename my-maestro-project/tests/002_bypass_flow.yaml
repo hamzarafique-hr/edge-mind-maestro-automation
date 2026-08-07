@@ -1,0 +1,30 @@
+appId: "com.ondevice.ai.chat.assistant"
+name: Bypass Flow via Skip Option
+tags:
+  - onboarding
+  - onbd-j002
+---
+# Load the shared Page Object file
+- runScript: ../elements/onboarding_elements.js
+
+# Step 1: Launch the EdgeMind app
+- launchApp:
+    clearState: true
+
+# Step 2: On the category screen, locate the Skip action link at the top-right corner
+- extendedWaitUntil:
+    visible: ${output.onboardingPage.welcomeTitle}
+    timeout: 5000
+- assertVisible: ${output.onboardingPage.skipButton}
+
+# Step 3: Tap the Skip button
+- tapOn: ${output.onboardingPage.skipButton}
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Expected Results: Onboarding steps 2 and 3 are bypassed; the workspace loads instantly
+- assertNotVisible: ${output.onboardingPage.personalAssistantTitle}
+- assertNotVisible: ${output.onboardingPage.onDeviceTitle}
+- assertVisible: ${output.dashboardPage.brandHeader}
+- assertVisible: ${output.dashboardPage.workspacePrompt}
+- assertVisible: ${output.dashboardPage.agentLoadingStatus}

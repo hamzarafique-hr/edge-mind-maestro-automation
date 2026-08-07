@@ -1,0 +1,4 @@
+appId: com.ondevice.ai.chat.assistant
+---
+- launchApp:
+    clearState: true
