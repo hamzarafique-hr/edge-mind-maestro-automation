@@ -59,7 +59,7 @@ maestro test --format html-detailed --output report.html <flow-path>
 
 Tests run automatically via GitHub Actions using Genymotion Cloud devices. The pipeline:
 1. Downloads the APK from Google Drive
-2. Spins up an Android 14 emulator on Genymotion Cloud
+<!-- 2. Spins up an Android 14 emulator on Genymotion Cloud -->
 3. Installs the app and executes the Maestro test suite
 4. Uploads the generated HTML report as an artifact
 
